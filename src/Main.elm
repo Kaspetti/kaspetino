@@ -1,26 +1,61 @@
-module Main exposing (..)
-
+module Main exposing (main)
 
 import Browser
-import Html exposing (Html, h1, text)
+import Element exposing (..)
+import Element.Background as Background
+import Element.Font as Font
+import Styles.Colors exposing (slate50, slate900)
 
 
-main : Program () Model Msg
+type alias Flags =
+    {}
+
+
+type alias Model =
+    ()
+
+
+initialModel : Model
+initialModel =
+    ()
+
+
+type Msg
+    = NoOp
+
+
+init : Flags -> ( Model, Cmd Msg )
+init _ =
+    ( initialModel, Cmd.none )
+
+
+main : Program Flags Model Msg
 main =
-    Browser.element
-    { init = init
-    , view = view
-    , update = update
-    , subscriptions = subscriptions
+    Browser.document
+        { init = init
+        , view = view
+        , update = update
+        , subscriptions = subscriptions
+        }
+
+
+view : Model -> Browser.Document Msg
+view _ =
+    { title = "Kaspeti"
+    , body =
+        [ layout
+            [ Background.color slate900 ]
+            comingSoonRow
+        ]
     }
 
 
-type alias Model = Int
-type Msg = None
-
-
-init : () -> (Model, Cmd Msg)
-init _ = (-1, Cmd.none)
+comingSoonRow : Element msg
+comingSoonRow =
+    column [ centerX, centerY, spacing 15 ]
+        [ el [ Font.size 50, Font.color slate50 ] (text "Coming soon!")
+        , el [ centerX, Font.size 25, Font.color slate50 ] (text "kaspeti.no")
+        ]
 
 
 subscriptions : Model -> Sub Msg
@@ -28,13 +63,9 @@ subscriptions _ =
     Sub.none
 
 
-update : Msg -> Model -> (Model, Cmd Msg)
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
+    -- case Debug.log "msg" msg of
     case msg of
-        None ->
-            (model, Cmd.none)
-
-
-view : Model -> Html Msg
-view _ =
-    h1 [] [ text "kaspeti.no" ]  
+        NoOp ->
+            ( model, Cmd.none )
