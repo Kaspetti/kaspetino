@@ -20,7 +20,7 @@ type Msg = None
 
 
 init : () -> (Model, Cmd Msg)
-init _ = (0, Cmd.none)
+init _ = (-1, Cmd.none)
 
 
 subscriptions : Model -> Sub Msg
