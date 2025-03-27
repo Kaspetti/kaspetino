@@ -2,7 +2,7 @@ module Main exposing (..)
 
 
 import Browser
-import Html exposing (Html, div, text)
+import Html exposing (Html, h1, text)
 
 
 main : Program () Model Msg
@@ -37,4 +37,4 @@ update msg model =
 
 view : Model -> Html Msg
 view _ =
-    div [] [ text "Hello, World!" ]  
+    h1 [] [ text "kaspeti.no" ]  
