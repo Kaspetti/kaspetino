@@ -24,6 +24,6 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
       
-      - name: Deploy to server
+      - name: Deploy to server and run elm make
         run: |
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd ${{ secrets.PROJECT_PATH }} && git fetch && git checkout ${{ github.ref_name }} && echo 'Deployed tag: ${{ github.ref_name }}'"
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd ${{ secrets.PROJECT_PATH }} && git fetch && git checkout ${{ github.ref_name }} && elm make && echo 'Deployed tag: ${{ github.ref_name }} and compiled Elm project'"
