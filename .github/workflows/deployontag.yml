@@ -26,4 +26,4 @@ jobs:
       
       - name: Deploy to server and run elm make
         run: |
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd ${{ secrets.PROJECT_PATH }} && git fetch && git checkout ${{ github.ref_name }} && elm make src/Main.elm && echo 'Deployed tag: ${{ github.ref_name }} and compiled Elm project'"
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd ${{ secrets.PROJECT_PATH }} && git fetch && git checkout ${{ github.ref_name }} && elm make src/Main.elm --optimize --output=main.js && uglifyjs main.js --compress "pure_funcs=[F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9],pure_getters,keep_fargs=false,unsafe_comps,unsafe" | uglifyjs --mangle --output main.min.js && echo 'Deployed tag: ${{ github.ref_name }} and compiled Elm project'"
